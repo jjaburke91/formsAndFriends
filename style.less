@@ -1,5 +1,30 @@
-#login-page-container {
+@font-stack: 'Open Sans';
+
+html {
+    font-family: @font-stack;
+}
+
+#registration-page-container {
     max-width: 80em;
     margin: auto;
     border: 1px dashed grey;
+
+    >h1 {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    #registration-form-container {
+        max-width: 40em;
+        margin: auto;
+        border: 1px solid blue;
+    }
+}
+
+/* Try make this component as re-usable as possible. let it fit to container nicely */
+#registration-form {
+
+    .form-input-container {
+
+    }
 }

@@ -1,0 +1,53 @@
+
+<!--Confirm why we need the novalidate-->
+<form id="registration-form" name="registerForm" ng-submit="formSubmit(registerForm.$valid )" novalidate>
+    <h1>Register:</h1>
+
+    <div class="form-input-container">
+        <span>Username (e-mail):</span>
+        <input type="email" name="username" ng-model="newUser.username" ng-minlength="5" ng-maxlength="50" required />
+
+        <p class="register-form-error"
+           ng-show="registerForm.username.$invalid &&
+                    registerForm.username.$touched">
+            Valid user email is required.
+        </p>
+    </div>
+
+    <div class="form-input-container">
+        <span>Password:</span>
+        <input type="password" name="password" ng-model="newUser.password" required/>
+
+        <p class="register-form-error"
+           ng-show="registerForm.password.$error.minlength &&
+                    registerForm.password.$touched">
+            Password is too short.
+        </p>
+        <p class="register-form-error"
+           ng-show="registerForm.password.$error.maxlength &&
+                    registerForm.password.$touched">
+            Password is too long.
+        </p>
+        <p class="register-form-error"
+           ng-show="!passwordContainsNumber() &&
+                    registerForm.password.$touched" >
+            Password must contain an numeric character.
+        </p>
+
+    </div>
+
+    <div class="form-input-container">
+        <span>Confirm Password:</span>
+        <input type="password" name="password_confirmation" ng-model="newUser.password_confirmation" required/>
+
+        <p class="register-form-error"
+           ng-show="registerForm.password_confirmation.$touched &&
+                    !passwordsMatch()">
+            Passwords must be the same.
+        </p>
+    </div>
+
+    <button type="submit">Register</button>
+    <p>{{newUser}}</p>
+
+</form>
