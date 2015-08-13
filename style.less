@@ -1,23 +1,47 @@
 @font-stack: 'Open Sans';
+@background-color: #FFFFF;
+@text-color: #696A6E;
+@darker-text-color: #424346;
+@error-text-color: #00ADBA;
+@highlight-color: #03A68C;
+
+/* Mixins */
+
+.border-radius (@value) {
+    -webkit-border-radius: @value;
+    -moz-border-radius: @value;
+    border-radius: @value;
+}
+
+.transition (@transition) {
+    -webkit-transition: @transition;
+    -moz-transition: @transition;
+    -o-transition: @transition;
+    transition: @transition;
+}
 
 html {
     font-family: @font-stack;
+    background-color: @background-color;
+    color: @text-color;
 }
 
 #registration-page-container {
     max-width: 80em;
     margin: auto;
-    border: 1px dashed grey;
+//    border: 1px dashed grey;
 
     >h1 {
         text-align: center;
         text-transform: uppercase;
+        margin: .5em 0;
     }
 
     #registration-form-container {
         max-width: 40em;
         margin: auto;
-        border: 1px solid blue;
+
+        text-align: center;
     }
 }
 
@@ -25,6 +49,54 @@ html {
 #registration-form {
 
     .form-input-container {
+        padding: .5em 0 2em 0;
+        position: relative;
+        font-size: 1.3em;
 
+        .input-label {
+            margin: 0 0 .5em 0;
+            padding: 0;
+            text-transform: uppercase;
+        }
+
+        input {
+            display: block;
+            width: 30em;
+            max-width: 40em;
+            padding: 1em 0;
+
+            text-align: center;
+            font-size: 1em;
+            background-color: @background-color;
+            border: 2px solid @text-color;
+        }
+
+        .register-form-error {
+            position: absolute;
+//            display: block;
+            width: 100%;
+            bottom: 1em;
+
+            margin: .2em 0;
+            padding: 0;
+
+            color: @error-text-color ;
+            text-transform: lowercase;
+            font-weight: bold;
+            font-size: .7em;
+        }
+    }
+
+    button {
+        padding: .5em 1em;
+        margin: 1em;
+        cursor: pointer;
+
+        .border-radius (20px);
+        border: 0;
+
+        font-size: 1.2em;
+        background-color: @highlight-color;
+        color: @darker-text-color;
     }
 }
