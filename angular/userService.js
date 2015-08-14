@@ -1,10 +1,11 @@
 formsAndFriendsApp.service("userRepository", ['$http', function($http) {
+    var that = this;
     var facebookFriendsUrl = "/api/find-user-facebook-friends";
-    var createUserUrl = "";
-    var loginUserUrl = "";
+    var createUserUrl = "/api/create-user";
+    var loginUserUrl = "/api/user-login";
 
     var activeUser = {
-        username: "jamie@jamie"
+        username: null
     };
 
     var messages = {
@@ -16,9 +17,9 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
         createUser: function(newUser) {
             return $http.post(createUserUrl, newUser).then(
                 function success(response) {
-                    console.log(response);
-                    this.setActiveUser(newUser);
-                    return messages.success;
+                    console.log(response.data);
+                    activeUser = response.data;
+                    return activeUser;
                 },
                 function error(response) {
                     console.error("userRepository: Error posting new user to repository");
@@ -30,8 +31,10 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
         loginUser: function(loginUser) {
             return $http.post(loginUserUrl, loginUser).then(
                 function success(response) {
-                    console.log(response);
-                    return response.data;
+                    activeUser = response.data;
+                    console.log("new active user:");
+                    console.log(activeUser);
+                    return activeUser;
                 },
                 function error(response) {
                     console.error("userRepository: Error trying to login user to repository");

@@ -1,5 +1,5 @@
 @font-stack: 'Open Sans';
-@background-color: #FFFFF;
+@background-color: #FFFFFF;
 @text-color: #696A6E;
 @darker-text-color: #424346;
 @error-text-color: #00ADBA;
@@ -56,9 +56,10 @@ html {
 
     #register-login-link {
         width: 15em;
-        margin: auto;
+        margin: 0 auto 1em auto;
         text-align: center;
         font-size: 1.5em;
+        text-transform: lowercase;
 
         .active {
             border-bottom: 3px @highlight-color solid;
@@ -96,7 +97,7 @@ html {
         border: 2px solid @text-color;
     }
 
-    .register-form-error {
+    .form-error {
         position: absolute;
         width: 100%;
         bottom: 1em;
@@ -111,16 +112,21 @@ html {
     }
 }
 
-button {
+.form-button {
     padding: .5em 1em;
     margin: 1em;
     cursor: pointer;
 
     .border-radius (20px);
-    border: 0;
+    border: 1px solid @highlight-color !important;
 
     font-size: 1.2em;
     background-color: @highlight-color;
+    color: @background-color;
+
+}
+.form-button:disabled {
+    background-color: @background-color;
     color: @darker-text-color;
 }
 

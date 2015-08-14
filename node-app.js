@@ -1,9 +1,12 @@
 var express = require('express');
 var app = express();
-var fs = require('fs');
+var fs = require('fs'); // Library to read from filesystem
 
-app.use("/", express.static(__dirname + '/'));
+var bodyParser = require('body-parser'); // adds ease to reading http post bodies.
+var jsonParser = bodyParser.json()
+var urlencodedParser = bodyParser.urlencoded({ extended: false }); // TO REMOVE: need this?
 
+app.use("/", express.static(__dirname + '/')); // Allows Angular to handle routing.
 app.get('/', function (req, res) {
     res.sendfile('index.html');
 });
@@ -59,15 +62,6 @@ var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
 
 /* API End-Points */
 
-// TO REMOVE
-//app.get('/api/users', function(req, res) {
-//    res.sendFile(__dirname + '/data/allUsers.json');
-//});
-//
-//app.get('/api/facebook-friends', function(req, res) {
-//    res.sendFile(__dirname + '/data/facebookFriends.json');
-//});
-
 app.get('/api/find-user-facebook-friends', function(req, res) {
 
     // All users array is already sorted
@@ -85,3 +79,22 @@ app.get('/api/find-user-facebook-friends', function(req, res) {
     res.send(registeredFacebookFriends);
 
 });
+
+app.post('/api/create-user', function(req, res) {
+    console.log(req.body);
+
+
+});
+
+app.post('/api/user-login', jsonParser, function(req, res) {
+    if (!req.body)
+        return res.sendStatus(404);
+
+    // Set user object and return it
+
+    console.log(req.body);
+
+    res.send(req.body);
+
+});
+

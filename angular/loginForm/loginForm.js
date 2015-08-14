@@ -1,6 +1,7 @@
 formsAndFriendsApp.directive("loginForm", [ function() {
     return {
         restrict: 'E',
+        scope : {}, // isolating directive scope
         templateUrl: "/angular/loginForm/loginForm.html",
         controller: "loginFormController"
     }
@@ -15,7 +16,7 @@ formsAndFriendsApp.controller("loginFormController", ["$scope", "userRepository"
 
     $scope.formSubmit = function(valid) {
         if (valid) {
-            userRepository.userLogin($scope.loginUser);
+            userRepository.loginUser($scope.loginUser);
         }
 
     }

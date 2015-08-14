@@ -1,6 +1,7 @@
 formsAndFriendsApp.directive("registrationForm", [ function() {
     return {
         restrict: 'E',
+        scope : {}, // isolating directive scope
         templateUrl: "/angular/registrationForm/registrationForm.html",
         controller: "registrationFormController"
     }

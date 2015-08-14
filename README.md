@@ -11,6 +11,7 @@
 ## Comments
 
 * Don't usually do any styling early on. Usually wait till content and functionality is complete.
+* Form error messages should be kept in a library somewhere as opposed to scattered across HTML.
 
 ## Build
 
