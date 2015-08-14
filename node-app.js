@@ -4,8 +4,7 @@ var fs = require('fs'); // Library to read from filesystem
 var validator = require('validator');
 
 var bodyParser = require('body-parser'); // adds ease to reading http post bodies.
-var jsonParser = bodyParser.json()
-var urlencodedParser = bodyParser.urlencoded({ extended: false }); // TO REMOVE: need this?
+var jsonParser = bodyParser.json();
 
 app.use("/", express.static(__dirname + '/')); // Allows Angular to handle routing.
 app.get('/', function (req, res) {
@@ -19,6 +18,12 @@ var server = app.listen(3000, function () {
   console.log('Example app listening at http://%s:%s', host, port);
 });
 
+
+
+
+
+
+/** Back-End Code. Above is boiler-plate server setup. **/
 
 // Use this object to encapsulate all my variables, removing them from Javascript's global scope.
 var globalScope = {};
@@ -67,7 +72,18 @@ var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
 
 /* API End-Points */
 
+/**
+ * Expects parameter username.
+ *
+ * Returns JSON array containing all 'usernames' facebook friends who are registered to audiosplitter.
+ */
 app.get('/api/find-user-facebook-friends', function(req, res) {
+
+    if (req.query.username == null || req.query.username == "") {
+        res.sendStatus(400); // Send 400 BAD REQUEST response when required fields aren't given
+    }
+
+    // Would now give username to facebook API to retrieve friends.
 
     // All users array is already sorted
     var allUsers = JSON.parse(
@@ -82,7 +98,6 @@ app.get('/api/find-user-facebook-friends', function(req, res) {
     var registeredFacebookFriends = getRegisteredFacebookFriends(allUsers, facebookFriends);
 
     res.send(registeredFacebookFriends);
-
 });
 
 
@@ -92,7 +107,6 @@ app.get('/api/find-user-facebook-friends', function(req, res) {
  * User object, representing an Audiosplitter user.
  * @param username username (e-mail)
  * @param password
- * @constructor
  */
 globalScope.User = function(username, password) {
     this.username = username;
@@ -107,7 +121,14 @@ globalScope.User = function(username, password) {
     }
 };
 
-
+/**
+ * Expects JSON of a user containing fields:
+ * * username
+ * * password
+ * * password_confirmation
+ *
+ * Returns User object.
+ */
 app.post('/api/create-user', jsonParser, function(req, res) {
     if (!req.body) {
         return res.sendStatus(404);
@@ -130,6 +151,13 @@ app.post('/api/create-user', jsonParser, function(req, res) {
     res.send(newUser.getPublicUser());
 });
 
+/**
+ * Expects JSON of a user containing fields:
+ * * username
+ * * password
+ *
+ * Returns User object.
+ */
 app.post('/api/user-login', jsonParser, function(req, res) {
     if (!req.body) {
         return res.sendStatus(404);
@@ -142,4 +170,3 @@ app.post('/api/user-login', jsonParser, function(req, res) {
     res.send(loggedInUser.getPublicUser());
 
 });
-
