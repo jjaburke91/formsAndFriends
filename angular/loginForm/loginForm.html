@@ -1,0 +1,18 @@
+
+<form id="login-form" name="loginForm" ng-submit="formSubmit(loginForm.$valid )" novalidate>
+
+    <div class="form-input-container">
+        <p class="input-label">Username (E-mail)</p>
+        <input type="email" name="username" ng-model="loginUser.username" ng-minlength="5" ng-maxlength="50" required />
+
+    </div>
+
+    <div class="form-input-container">
+        <p class="input-label">Password</p>
+        <input type="password" name="password" ng-model="loginUser.password" ng-minlength="7" ng-maxlength="15" required/>
+
+    </div>
+
+    <button type="submit">Login</button>
+
+</form>

@@ -1,10 +1,20 @@
-active user: {{activeUser}}
-<button ng-click="userRepo.setActiveUser('jamie@jamie.com')">Set Active User</button>
 
-<div id="registration-page-container">
-    <div id="registration-form-container">
+<div id="home-page-container">
+
+    <div id="register-login-link">
+        <span ng-class="{'active': registerFormActive}" ng-click="registerFormActive = true; loginFormActive = false">Register</span>
+        <span ng-class="{'active': loginFormActive}"    ng-click="registerFormActive = false; loginFormActive = true">Login</span>
+    </div>
+
+    <div id="registration-form-container" ng-show="registerFormActive">
 
         <registration-form> </registration-form>
+
+    </div>
+
+    <div id="login-form-container" ng-show="loginFormActive">
+
+        <login-form></login-form>
 
     </div>
 
