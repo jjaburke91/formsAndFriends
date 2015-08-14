@@ -15,4 +15,3 @@
 ## Build
 
 ### Node JS
-Set absolute path in node-app.
