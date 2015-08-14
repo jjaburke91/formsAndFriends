@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var fs = require('fs'); // Library to read from filesystem
+var validator = require('validator');
 
 var bodyParser = require('body-parser'); // adds ease to reading http post bodies.
 var jsonParser = bodyParser.json()
@@ -17,6 +18,10 @@ var server = app.listen(3000, function () {
 
   console.log('Example app listening at http://%s:%s', host, port);
 });
+
+
+// Use this object to encapsulate all my variables, removing them from Javascript's global scope.
+var globalScope = {};
 
 
 /**
@@ -80,21 +85,61 @@ app.get('/api/find-user-facebook-friends', function(req, res) {
 
 });
 
-app.post('/api/create-user', function(req, res) {
-    console.log(req.body);
+
+/** User Management **/
+
+/**
+ * User object, representing an Audiosplitter user.
+ * @param username username (e-mail)
+ * @param password
+ * @constructor
+ */
+globalScope.User = function(username, password) {
+    this.username = username;
+    this.password = password;
+
+    // Following function returns the contents of User to share with front-end.
+    //  I don't want the password to be visible in the front-end, so don't include.
+    this.getPublicUser = function() {
+        return {
+            username: this.username
+        };
+    }
+};
 
 
+app.post('/api/create-user', jsonParser, function(req, res) {
+    if (!req.body) {
+        return res.sendStatus(404);
+    }
+
+    // Validating user information server-side.
+    if ( validator.isEmail(req.body.username) &&
+            req.body.username.length > 5 &&
+            req.body.password.length <= 50 &&
+            req.body.password.length > 7 &&
+            req.body.password.length < 15 &&
+            req.body.password === req.body.password_confirmation
+        ) {
+        var newUser = new globalScope.User(req.body.username, req.body.password);
+    }
+
+    // write to db
+
+    console.log("User '" + newUser.username + "' created.");
+    res.send(newUser.getPublicUser());
 });
 
 app.post('/api/user-login', jsonParser, function(req, res) {
-    if (!req.body)
+    if (!req.body) {
         return res.sendStatus(404);
+    }
 
-    // Set user object and return it
+    // Search and retrieve user from database
 
-    console.log(req.body);
+    var loggedInUser = new globalScope.User(req.body.username, req.body.password);
 
-    res.send(req.body);
+    res.send(loggedInUser.getPublicUser());
 
 });
 

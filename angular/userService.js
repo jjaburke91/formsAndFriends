@@ -7,11 +7,6 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
         username: null
     };
 
-    var messages = {
-        success: "User registered successfully.",
-        error: "Error registering user"
-    };
-
     return {
         createUser: function(newUser) {
             return $http.post(createUserUrl, newUser).then(
@@ -23,7 +18,6 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
                 function error(response) {
                     console.error("userRepository: Error posting new user to repository");
                     console.error(response);
-                    return messages.error;
                 }
             );
         },
@@ -42,10 +36,6 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
         },
         getActiveUser: function() {
             return activeUser;
-        },
-        // REMOVE FOLLOWING FUNCTION
-        setActiveUser: function(newActiveUser) {
-            activeUser.username = newActiveUser;
         },
 
         getFacebookFriends: function(userEmail) {
