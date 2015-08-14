@@ -25,8 +25,6 @@ var server = app.listen(3000, function () {
 
 /** Back-End Code. Above is boiler-plate server setup. **/
 
-// Use this object to encapsulate all my variables, removing them from Javascript's global scope.
-var globalScope = {};
 
 
 /**
@@ -72,15 +70,10 @@ var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
 
 /* API End-Points */
 
-/**
- * Expects parameter username.
- *
- * Returns JSON array containing all 'usernames' facebook friends who are registered to audiosplitter.
- */
 app.get('/api/find-user-facebook-friends', function(req, res) {
 
-    if (req.query.username == null || req.query.username == "") {
-        res.sendStatus(400); // Send 400 BAD REQUEST response when required fields aren't given
+    if (req.query.username == null) {
+        res.sendStatus(400); // Sent BAD REQUEST response when required fields aren't given
     }
 
     // Would now give username to facebook API to retrieve friends.
@@ -107,8 +100,9 @@ app.get('/api/find-user-facebook-friends', function(req, res) {
  * User object, representing an Audiosplitter user.
  * @param username username (e-mail)
  * @param password
+ * @constructor
  */
-globalScope.User = function(username, password) {
+var User = function(username, password) {
     this.username = username;
     this.password = password;
 
@@ -122,17 +116,18 @@ globalScope.User = function(username, password) {
 };
 
 /**
- * Expects JSON of a user containing fields:
+ * Expects JSON of user containing fields:
  * * username
  * * password
  * * password_confirmation
- *
- * Returns User object.
  */
 app.post('/api/create-user', jsonParser, function(req, res) {
     if (!req.body) {
-        return res.sendStatus(404);
+        res.sendStatus(404);
+        return;
     }
+
+    console.log(req.body);
 
     // Validating user information server-side.
     if ( validator.isEmail(req.body.username) &&
@@ -142,21 +137,23 @@ app.post('/api/create-user', jsonParser, function(req, res) {
             req.body.password.length < 15 &&
             req.body.password === req.body.password_confirmation
         ) {
-        var newUser = new globalScope.User(req.body.username, req.body.password);
+        var newUser = new User(req.body.username, req.body.password);
+
+        // write to db
+
+        console.log("User '" + newUser.username + "' created.");
+        res.send(newUser.getPublicUser());
+    } else {
+        res.sendStatus(404);
     }
 
-    // write to db
 
-    console.log("User '" + newUser.username + "' created.");
-    res.send(newUser.getPublicUser());
 });
 
 /**
  * Expects JSON of a user containing fields:
  * * username
  * * password
- *
- * Returns User object.
  */
 app.post('/api/user-login', jsonParser, function(req, res) {
     if (!req.body) {
@@ -165,8 +162,9 @@ app.post('/api/user-login', jsonParser, function(req, res) {
 
     // Search and retrieve user from database
 
-    var loggedInUser = new globalScope.User(req.body.username, req.body.password);
+    var loggedInUser = new User(req.body.username, req.body.password);
 
     res.send(loggedInUser.getPublicUser());
 
 });
+

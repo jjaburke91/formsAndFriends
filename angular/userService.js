@@ -11,7 +11,6 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
         createUser: function(newUser) {
             return $http.post(createUserUrl, newUser).then(
                 function success(response) {
-                    console.log(response.data);
                     angular.copy(response.data, activeUser); // CONFIRM WHY THIS IS NEEDED
                     return activeUser;
                 },
@@ -25,11 +24,9 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
             return $http.post(loginUserUrl, loginUser).then(
                 function success(response) {
                     angular.copy(response.data, activeUser); // CONFIRM WHY THIS IS NEEDED
-                    console.log("new active user:");
-                    console.log(activeUser);
                     return activeUser;
                 },
-                function error(response) {
+                function error() {
                     console.error("userRepository: Error trying to login user to repository");
                 }
             )

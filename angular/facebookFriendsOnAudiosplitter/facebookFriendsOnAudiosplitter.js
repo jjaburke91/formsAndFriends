@@ -9,7 +9,7 @@ formsAndFriendsApp.directive("facebookFriendsOnAudiosplitter", [ 'userRepository
                     return userRepo.getActiveUser().username;
                 }, function() {
                     if (userRepo.getActiveUser().username != null) {
-                        scope.findFriends();
+                        scope.findFriends(userRepo.getActiveUser().username);
                     }
                 }
             );
@@ -20,9 +20,13 @@ formsAndFriendsApp.directive("facebookFriendsOnAudiosplitter", [ 'userRepository
 formsAndFriendsApp.controller("facebookFriendsOnAudiosplitterController", ["$scope", "userRepository", function($scope, userRepository) {
     $scope.facebookFriendsFound = false;
 
-    $scope.findFriends = function() {
-        userRepository.getFacebookFriends().then(
+    $scope.findFriends = function(username) {
+        userRepository.getFacebookFriends(username).then(
             function success(response) {
+                if (typeof response === undefined) {
+                    console.error("facebookFriendsOnAudiosplitterController: Error retrieving facebook friends");
+                    return;
+                }
                 if (response.length > 0) {
                     $scope.facebookFriends = response;
                     $scope.facebookFriendsFound = true;

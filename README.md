@@ -7,6 +7,7 @@
 * Service or otherwise for writing to DB.
 * ~~Get facebook friends search exported to server-side.~~
 * Set up PHP environment.
+* Ensure only 1 error message is displayed at a time on a form.
 
 ## Comments
 
@@ -14,6 +15,7 @@
 * Form error messages should be kept in a library somewhere as opposed to scattered across HTML.
 * Password constraints
 * Bad request on username unavailable on facebook friend request
+* email validators client and server side aren't same. Client accepts "jamie@jamie", server doesn't.
 
 ## Build
 
