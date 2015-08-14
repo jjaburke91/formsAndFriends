@@ -1,6 +1,6 @@
 formsAndFriendsApp.service("userRepository", ['$http', function($http) {
-    var allUsersUrl = "/data/allUsers.json";
-    var facebookFriendsUrl = "/data/facebookFriends.json";
+    var allUsersUrl = "/api/users";
+    var facebookFriendsUrl = "/api/facebook-friends";
     var activeUser = {
         username: null
     };
@@ -28,6 +28,7 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
         getActiveUser: function() {
             return activeUser;
         },
+        // REMOVE FOLLOWING FUNCTION
         setActiveUser: function(newActiveUser) {
             activeUser.username = newActiveUser;
         },

@@ -10,4 +10,9 @@
 
 ## Comments
 
+* Don't usually do any styling early on. Usually wait till content and functionality is complete.
 
+## Build
+
+### Node JS
+Set absolute path in node-app.
