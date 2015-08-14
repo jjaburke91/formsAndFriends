@@ -70,6 +70,11 @@ var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
 
 /* API End-Points */
 
+/**
+ * Requires username parameter in get request.
+ *
+ * Returns array of 'username's facebook friends of whome are registered to audiosplitter
+ */
 app.get('/api/find-user-facebook-friends', function(req, res) {
 
     if (req.query.username == null) {
@@ -100,7 +105,6 @@ app.get('/api/find-user-facebook-friends', function(req, res) {
  * User object, representing an Audiosplitter user.
  * @param username username (e-mail)
  * @param password
- * @constructor
  */
 var User = function(username, password) {
     this.username = username;
@@ -120,14 +124,14 @@ var User = function(username, password) {
  * * username
  * * password
  * * password_confirmation
+ *
+ * Returns Json object of user.
  */
 app.post('/api/create-user', jsonParser, function(req, res) {
     if (!req.body) {
         res.sendStatus(404);
         return;
     }
-
-    console.log(req.body);
 
     // Validating user information server-side.
     if ( validator.isEmail(req.body.username) &&
@@ -154,6 +158,8 @@ app.post('/api/create-user', jsonParser, function(req, res) {
  * Expects JSON of a user containing fields:
  * * username
  * * password
+ *
+ * Returns Json object of user.
  */
 app.post('/api/user-login', jsonParser, function(req, res) {
     if (!req.body) {
@@ -165,6 +171,5 @@ app.post('/api/user-login', jsonParser, function(req, res) {
     var loggedInUser = new User(req.body.username, req.body.password);
 
     res.send(loggedInUser.getPublicUser());
-
 });
 
