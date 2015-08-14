@@ -1,9 +1,11 @@
 formsAndFriendsApp.service("userRepository", ['$http', function($http) {
+    var allUsersUrl = "/data/allUsers.json";
+    var facebookFriendsUrl = "/data/facebookFriends.json";
+
     var messages = {
         success: "User registered successfully.",
         error: "Error registering user"
     };
-
 
     return {
         createUser: function(newUser) {
@@ -17,8 +19,32 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
                     console.error(response);
                     return messages.error;
                 }
-            )
+            );
+        },
 
+        getAudiosplitterUsers: function() {
+            return $http.get(allUsersUrl).then(
+                function success(response) {
+                    var data = response.data;
+                    return data;
+                },
+                function error(response) {
+                    console.error("userRepository: Error getting Audiosplitter users.");
+                }
+            );
+        },
+
+        // I pass in the user email for sake of a more realistic use-case.
+        getFacebookFriends: function(userEmail) {
+            return $http.get(facebookFriendsUrl + "?username=" + userEmail).then(
+                function success(response) {
+                    console.log(response.data);
+                    return response.data;
+                },
+                function error(response) {
+                    console.error("userRepository: Error getting facebook friends for " + userEmail + ".");
+                }
+            );
         }
     }
 

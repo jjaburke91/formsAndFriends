@@ -1,11 +1,14 @@
 
 <div id="registration-page-container">
-
     <div id="registration-form-container">
         <registration-form> </registration-form>
     </div>
 
+    <button ng-click="setActiveUser()">Set Active User</button>
+
     <div id="facebook-friend-comparator-container">
+
+        <facebook-friends-on-audiosplitter ng-model="activeUser" ></facebook-friends-on-audiosplitter>
 
     </div>
 

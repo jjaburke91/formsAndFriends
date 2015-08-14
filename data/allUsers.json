@@ -1,0 +1,108 @@
+[
+
+  {
+
+    "username": "Buffy",
+    "favouriteArtist": "Bob Dylan",
+    "facebookId": 0
+
+  },
+  {
+
+    "username": "Angel",
+    "favouriteArtist": "Leonard Cohen",
+    "facebookId": 1
+
+  },
+  {
+
+    "username": "Willow",
+    "favouriteArtist": "Pink Floyd",
+    "facebookId": 2
+
+  },
+  {
+
+    "username": "Giles",
+    "favouriteArtist": "Dream Theater",
+    "facebookId": 3
+
+  },
+  {
+
+    "username": "Xander",
+    "favouriteArtist": "FLUME",
+    "facebookId": 4
+
+  },
+  {
+
+    "username": "Spike",
+    "favouriteArtist": "Katy Perry",
+    "facebookId": 5
+
+  },
+  {
+
+    "username": "Tara",
+    "favouriteArtist": "Rihanna",
+    "facebookId": 6
+
+  },
+  {
+
+    "username": "Joyce",
+    "favouriteArtist": "Eminem",
+    "facebookId": 7
+
+  },
+  {
+
+    "username": "Anya",
+    "favouriteArtist": "Bruno Mars",
+    "facebookId": 8
+
+  },
+  {
+
+    "username": "Oz",
+    "favouriteArtist": "Linkin Park",
+    "facebookId": 9
+
+  },
+  {
+
+    "username": "Dawn",
+    "favouriteArtist": "Metallica",
+    "facebookId": 10
+
+  },
+  {
+
+    "username": "Riley",
+    "favouriteArtist": "Purity Ring",
+    "facebookId": 11
+
+  },
+  {
+
+    "username": "Joyce",
+    "favouriteArtist": "50 Cent",
+    "facebookId": 12
+
+  },
+  {
+
+    "username": "Cordelia",
+    "favouriteArtist": "First Aid Kit",
+    "facebookId": 13
+
+  },
+
+  {
+    "username": "Harmony",
+    "favouriteArtist": "Dire Straits",
+    "facebookId": 14
+  }
+
+]

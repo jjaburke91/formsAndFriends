@@ -15,7 +15,7 @@
 
     <div class="form-input-container">
         <p class="input-label">Password</p>
-        <input type="password" name="password" ng-model="newUser.password" required/>
+        <input type="password" name="password" ng-model="newUser.password" ng-minlength="7" ng-maxlength="15" required/>
 
         <p class="register-form-error"
            ng-show="registerForm.password.$error.minlength &&
@@ -30,7 +30,7 @@
         <p class="register-form-error"
            ng-show="!passwordContainsNumber() &&
                     registerForm.password.$touched" >
-            Password must contain an numeric character
+            Password must contain a numeric character
         </p>
 
     </div>

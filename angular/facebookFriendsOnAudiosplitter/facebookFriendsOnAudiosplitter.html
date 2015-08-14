@@ -1,0 +1,19 @@
+Username: {{activeUser}}
+
+<div id="facebook-friend-search-container" ng-show="facebookFriendsFound">
+
+    <div id="facebook-friends">
+        <p ng-repeat="facebookFriend in facebookFriends">
+            {{facebookFriend.firstName}}
+            {{facebookFriend.facebookId}}
+        </p>
+    </div>
+
+    <div id="audiosplitter-users">
+        <p ng-repeat="user in users">
+            {{user.username}}
+            {{user.facebookId}}
+        </p>
+    </div>
+
+</div>
