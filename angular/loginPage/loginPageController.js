@@ -1,8 +1,5 @@
-formsAndFriendsApp.controller("loginPageController", ["$scope", "userRepository",  function($scope, userRepo) {
+formsAndFriendsApp.controller("loginPageController", ["$scope",  function($scope) {
     $scope.registerFormActive = true;
     $scope.loginFormActive = false;
-
-    $scope.activeUser = userRepo.getActiveUser();
-    $scope.userRepo = userRepo;
 
 }]);

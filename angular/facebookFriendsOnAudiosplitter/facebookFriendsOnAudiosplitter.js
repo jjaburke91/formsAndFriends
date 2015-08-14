@@ -1,16 +1,15 @@
-formsAndFriendsApp.directive("facebookFriendsOnAudiosplitter", [ function() {
+formsAndFriendsApp.directive("facebookFriendsOnAudiosplitter", [ 'userRepository', function(userRepo) {
     return {
         restrict: 'E',
-        require: 'ngModel',
         templateUrl: "/angular/facebookFriendsOnAudiosplitter/facebookFriendsOnAudiosplitter.html",
         controller: "facebookFriendsOnAudiosplitterController",
-        link : function(scope, el, attrs, ngModel) {
-            // Listens for update on ngModel and searches for available facebook friends when the activeUser is set to a value.
+        link : function(scope, el, attrs) {
             scope.$watch(
-                function () {
-                    return ngModel.$modelValue;
-                }, function(newValue) {
-                    if (newValue != null) {
+                function() {
+                    return userRepo.getActiveUser().username;
+                }, function() {
+                    console.log("watching");
+                    if (userRepo.getActiveUser().username != null) {
                         scope.findFriends();
                     }
                 }
@@ -23,12 +22,12 @@ formsAndFriendsApp.controller("facebookFriendsOnAudiosplitterController", ["$sco
     $scope.facebookFriendsFound = false;
 
     $scope.findFriends = function() {
-
         userRepository.getFacebookFriends().then(
             function success(response) {
-                $scope.facebookFriends = response;
-                console.log(response);
-                $scope.facebookFriendsFound = true;
+                if (response.length > 0) {
+                    $scope.facebookFriends = response;
+                    $scope.facebookFriendsFound = true;
+                }
             },
             function error() {
                 console.error("facebookFriendsOnAudiosplitterController: Error retrieving facebook friends.");

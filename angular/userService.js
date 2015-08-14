@@ -1,5 +1,4 @@
 formsAndFriendsApp.service("userRepository", ['$http', function($http) {
-    var that = this;
     var facebookFriendsUrl = "/api/find-user-facebook-friends";
     var createUserUrl = "/api/create-user";
     var loginUserUrl = "/api/user-login";
@@ -18,7 +17,7 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
             return $http.post(createUserUrl, newUser).then(
                 function success(response) {
                     console.log(response.data);
-                    activeUser = response.data;
+                    angular.copy(response.data, activeUser); // CONFIRM WHY THIS IS NEEDED
                     return activeUser;
                 },
                 function error(response) {
@@ -31,7 +30,7 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
         loginUser: function(loginUser) {
             return $http.post(loginUserUrl, loginUser).then(
                 function success(response) {
-                    activeUser = response.data;
+                    angular.copy(response.data, activeUser); // CONFIRM WHY THIS IS NEEDED
                     console.log("new active user:");
                     console.log(activeUser);
                     return activeUser;
