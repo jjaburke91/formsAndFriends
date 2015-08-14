@@ -20,6 +20,14 @@
     transition: @transition;
 }
 
+.border-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+
 html {
     font-family: @font-stack;
     background-color: @background-color;
@@ -100,17 +108,46 @@ html {
 }
 
 
-#facebook-friend-search-container {
+#facebook-friends-container {
 
-    #facebook-friends {
-        float: left;
-        width: 40%;
+    .facebook-friend-container {
+        max-width: 20em;
+        margin: auto;
+        padding: .5em 0;
+        overflow: auto;
+
+//        border: 1px solid gold;
+        .border-box;
+
+        .facebook-friend-image-container {
+            float: left;
+            img {
+                display: block;
+                max-width: 5em;
+                .border-radius(70px);
+            }
+        }
+
+        .facebook-friend-information-container {
+            padding: .5em 1em;
+            overflow: auto;
+
+            span {
+                display: block;
+                overflow: auto;
+//                width: 100%
+            }
+
+            .facebook-friend-name {
+                font-size: 1.5em;
+
+            }
+
+            .facebook-friend-artist {
+                font-size: 1em;
+                padding: 5px 0 0 0;
+            }
+        }
 
     }
-
-    #audiosplitter-users {
-        float: left;
-        width: 40%;
-    }
-
 }

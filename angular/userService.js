@@ -1,7 +1,7 @@
 formsAndFriendsApp.service("userRepository", ['$http', function($http) {
     var facebookFriendsUrl = "/api/find-user-facebook-friends";
     var activeUser = {
-        username: null
+        username: "jamie@jamie"
     };
 
     var messages = {

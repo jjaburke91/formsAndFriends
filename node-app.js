@@ -17,16 +17,16 @@ var server = app.listen(3000, function () {
 
 
 /**
- * Binary searches across allUsers and returns a list of those users which are in facebookFriends.
- * Comparison is based on a facebookId property.
+ * Binary searches across allUsers and returns a list of those users which within facebookFriends.
+ * Matching is based on a facebookId property.
  *
  * Returns empty array when none around found.
  *
  * NOTE: This could be made recursive.
  *
- * @param allUsers
- * @param facebookFriends
- * @returns {Array}
+ * @param allUsers List of all Audiosplitter users
+ * @param facebookFriends List of all a user's facebook friends
+ * @returns {Array} List of all facebook friends of whom are Audiosplitter users
  */
 var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
     var foundFriends = [];
@@ -59,13 +59,14 @@ var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
 
 /* API End-Points */
 
-app.get('/api/users', function(req, res) {
-    res.sendFile(__dirname + '/data/allUsers.json');
-});
-
-app.get('/api/facebook-friends', function(req, res) {
-    res.sendFile(__dirname + '/data/facebookFriends.json');
-});
+// TO REMOVE
+//app.get('/api/users', function(req, res) {
+//    res.sendFile(__dirname + '/data/allUsers.json');
+//});
+//
+//app.get('/api/facebook-friends', function(req, res) {
+//    res.sendFile(__dirname + '/data/facebookFriends.json');
+//});
 
 app.get('/api/find-user-facebook-friends', function(req, res) {
 

@@ -1,12 +1,15 @@
-Username: {{activeUser}}
+<div id="facebook-friends-container" ng-show="facebookFriendsFound">
 
-<div id="facebook-friend-search-container" ng-show="facebookFriendsFound">
+    <div class="facebook-friend-container" ng-repeat="facebookFriend in facebookFriends">
+        <div class="facebook-friend-image-container">
+            <img src="http://img4.wikia.nocookie.net/__cb20101015151246/muppet/images/0/05/Beaker.jpg" />
+        </div>
 
-    <div id="facebook-friends">
-        <p ng-repeat="facebookFriend in facebookFriends">
-            {{facebookFriend.username}}
-            {{facebookFriend.favouriteArtist}}
-        </p>
+        <div class="facebook-friend-information-container">
+            <span class="facebook-friend-name">{{facebookFriend.username}}</span>
+            <span class="facebook-friend-artist">Favourite Artist: {{facebookFriend.favouriteArtist}}</span>
+        </div>
+
     </div>
 
 </div>
