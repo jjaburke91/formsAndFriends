@@ -2,10 +2,10 @@
 
 ## To-Do
 * ~~Registration Form.~~
-* Run PHP files and have Angular retrieve content.
+* ~Run PHP files and have Angular retrieve content.~ Using JSON server-side
 * Create MySQL DB.
 * Service or otherwise for writing to DB.
-* Get facebook friends search exported to server-side.
+* ~Get facebook friends search exported to server-side.~
 * Set up PHP environment.
 
 ## Comments
@@ -15,3 +15,5 @@
 ## Build
 
 ### Node JS
+
+Using JSON files instead of PHP.

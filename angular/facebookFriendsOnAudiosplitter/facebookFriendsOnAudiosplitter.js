@@ -23,24 +23,18 @@ formsAndFriendsApp.controller("facebookFriendsOnAudiosplitterController", ["$sco
     $scope.facebookFriendsFound = false;
 
     $scope.findFriends = function() {
-        userRepository.getAudiosplitterUsers().then(
-            function success (response) {
-                $scope.users = response;
-            },
-            function error() {
-                console.error("facebookFriendsOnAudiosplitterController: Error retrieving Audiosplitter users.");
-            });
 
         userRepository.getFacebookFriends().then(
             function success(response) {
                 $scope.facebookFriends = response;
+                console.log(response);
+                $scope.facebookFriendsFound = true;
             },
             function error() {
                 console.error("facebookFriendsOnAudiosplitterController: Error retrieving facebook friends.");
             }
         );
 
-        $scope.facebookFriendsFound = true;
     };
 
 }]);

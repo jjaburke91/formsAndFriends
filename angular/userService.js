@@ -1,6 +1,5 @@
 formsAndFriendsApp.service("userRepository", ['$http', function($http) {
-    var allUsersUrl = "/api/users";
-    var facebookFriendsUrl = "/api/facebook-friends";
+    var facebookFriendsUrl = "/api/find-user-facebook-friends";
     var activeUser = {
         username: null
     };
@@ -33,18 +32,6 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
             activeUser.username = newActiveUser;
         },
 
-        getAudiosplitterUsers: function() {
-            return $http.get(allUsersUrl).then(
-                function success(response) {
-                    return response.data;
-                },
-                function error() {
-                    console.error("userRepository: Error getting Audiosplitter users.");
-                }
-            );
-        },
-
-        // I pass in the user email for sake of a more realistic use-case.
         getFacebookFriends: function(userEmail) {
             return $http.get(facebookFriendsUrl + "?username=" + userEmail).then(
                 function success(response) {

@@ -15,33 +15,6 @@ var server = app.listen(3000, function () {
   console.log('Example app listening at http://%s:%s', host, port);
 });
 
-/* API End-Points */
-
-app.get('/api/users', function(req, res) {
-   res.sendFile(__dirname + '/data/allUsers.json');
-});
-
-app.get('/api/facebook-friends', function(req, res) {
-   res.sendFile(__dirname + '/data/facebookFriends.json');
-});
-
-app.get('/api/find-user-facebook-friends', function(req, res) {
-
-    // All users array is already sorted
-    var allUsers = JSON.parse(
-        fs.readFileSync(__dirname + '/data/allUsers.json', 'utf8')
-    );
-
-    // Facebook friends array is NOT sorted.
-    var facebookFriends = JSON.parse(
-        fs.readFileSync(__dirname + '/data/facebookFriends.json', 'utf8')
-    );
-
-    var registeredFacebookFriends = getRegisteredFacebookFriends(allUsers, facebookFriends);
-
-    res.send(registeredFacebookFriends);
-
-});
 
 /**
  * Binary searches across allUsers and returns a list of those users which are in facebookFriends.
@@ -82,3 +55,32 @@ var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
     }
     return foundFriends;
 };
+
+
+/* API End-Points */
+
+app.get('/api/users', function(req, res) {
+    res.sendFile(__dirname + '/data/allUsers.json');
+});
+
+app.get('/api/facebook-friends', function(req, res) {
+    res.sendFile(__dirname + '/data/facebookFriends.json');
+});
+
+app.get('/api/find-user-facebook-friends', function(req, res) {
+
+    // All users array is already sorted
+    var allUsers = JSON.parse(
+        fs.readFileSync(__dirname + '/data/allUsers.json', 'utf8')
+    );
+
+    // Facebook friends array is NOT sorted.
+    var facebookFriends = JSON.parse(
+        fs.readFileSync(__dirname + '/data/facebookFriends.json', 'utf8')
+    );
+
+    var registeredFacebookFriends = getRegisteredFacebookFriends(allUsers, facebookFriends);
+
+    res.send(registeredFacebookFriends);
+
+});
