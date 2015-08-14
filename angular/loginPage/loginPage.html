@@ -1,15 +1,17 @@
+active user: {{activeUser}}
+<button ng-click="userRepo.setActiveUser('jamie@jamie.com')">Set Active User</button>
 
 <div id="registration-page-container">
     <div id="registration-form-container">
-        <registration-form> </registration-form>
-    </div>
 
-    <button ng-click="setActiveUser()">Set Active User</button>
+        <registration-form> </registration-form>
+
+    </div>
 
     <div id="facebook-friend-comparator-container">
 
-        <facebook-friends-on-audiosplitter ng-model="activeUser" ></facebook-friends-on-audiosplitter>
-
+        <facebook-friends-on-audiosplitter ng-model="activeUser.username" ></facebook-friends-on-audiosplitter>
+"
     </div>
 
 </div>

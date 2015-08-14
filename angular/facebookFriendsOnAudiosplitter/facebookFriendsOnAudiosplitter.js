@@ -1,16 +1,20 @@
 formsAndFriendsApp.directive("facebookFriendsOnAudiosplitter", [ function() {
     return {
         restrict: 'E',
+        require: 'ngModel',
         templateUrl: "/angular/facebookFriendsOnAudiosplitter/facebookFriendsOnAudiosplitter.html",
         controller: "facebookFriendsOnAudiosplitterController",
-        link : function(scope, el, attrs) {
-            // Listens for update on ngModel and searches for available facebook friends when activeUser is set.
-            scope.$watch(attrs.ngModel, function(v) {
-                if (scope.activeUser != null) {
-                    scope.findFriends();
+        link : function(scope, el, attrs, ngModel) {
+            // Listens for update on ngModel and searches for available facebook friends when the activeUser is set to a value.
+            scope.$watch(
+                function () {
+                    return ngModel.$modelValue;
+                }, function(newValue) {
+                    if (newValue != null) {
+                        scope.findFriends();
+                    }
                 }
-            });
-
+            );
         }
     }
 }]);

@@ -1,6 +1,9 @@
 formsAndFriendsApp.service("userRepository", ['$http', function($http) {
     var allUsersUrl = "/data/allUsers.json";
     var facebookFriendsUrl = "/data/facebookFriends.json";
+    var activeUser = {
+        username: null
+    };
 
     var messages = {
         success: "User registered successfully.",
@@ -12,6 +15,7 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
             return $http.post("", newUser).then(
                 function success(response) {
                     console.log(response);
+                    this.setActiveUser(newUser);
                     return messages.success;
                 },
                 function error(response) {
@@ -21,14 +25,19 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
                 }
             );
         },
+        getActiveUser: function() {
+            return activeUser;
+        },
+        setActiveUser: function(newActiveUser) {
+            activeUser.username = newActiveUser;
+        },
 
         getAudiosplitterUsers: function() {
             return $http.get(allUsersUrl).then(
                 function success(response) {
-                    var data = response.data;
-                    return data;
+                    return response.data;
                 },
-                function error(response) {
+                function error() {
                     console.error("userRepository: Error getting Audiosplitter users.");
                 }
             );
@@ -38,10 +47,9 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
         getFacebookFriends: function(userEmail) {
             return $http.get(facebookFriendsUrl + "?username=" + userEmail).then(
                 function success(response) {
-                    console.log(response.data);
                     return response.data;
                 },
-                function error(response) {
+                function error() {
                     console.error("userRepository: Error getting facebook friends for " + userEmail + ".");
                 }
             );

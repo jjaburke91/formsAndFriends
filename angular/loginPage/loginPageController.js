@@ -1,9 +1,5 @@
-formsAndFriendsApp.controller("loginPageController", ["$scope", function($scope) {
-    $scope.activeUser = null;
-
-    $scope.setActiveUser = function() {
-        $scope.activeUser = "jamie@jamie.com";
-    };
-
+formsAndFriendsApp.controller("loginPageController", ["$scope", "userRepository",  function($scope, userRepo) {
+    $scope.activeUser = userRepo.getActiveUser();
+    $scope.userRepo = userRepo;
 
 }]);
