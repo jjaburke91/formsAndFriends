@@ -25,6 +25,7 @@
     "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-wiredep": "^2.0.0",
+    "mysql": "^2.8.0",
     "validator": "^4.0.2"
   }
 }

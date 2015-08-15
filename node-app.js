@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-var fs = require('fs'); // Library to read from filesystem
 var validator = require('validator');
+var request = require('request');
 
 var bodyParser = require('body-parser'); // adds ease to reading http post bodies.
 var jsonParser = bodyParser.json();
@@ -20,12 +20,26 @@ var server = app.listen(3000, function () {
 
 
 
+/** Database Connections **/
+var mysql = require('mysql');
+var connection = mysql.createConnection( {
+    host: 'localhost',
+    user: 'aSplitterAdmin',
+    password: 'rubbishpassword',
+    database: 'audiosplitter'
+});
+
+connection.connect( function(err) {
+    if (!err) {
+        console.log("Database successfully connected.");
+    } else {
+        console.error("Error connecting to database.");
+    }
+});
 
 
 
 /** Back-End Code. Above is boiler-plate server setup. **/
-
-
 
 /**
  * Binary searches across allUsers and returns a list of those users which within facebookFriends.
@@ -67,40 +81,6 @@ var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
     return foundFriends;
 };
 
-
-/* API End-Points */
-
-/**
- * Requires username parameter in get request.
- *
- * Returns array of 'username's facebook friends of whome are registered to audiosplitter
- */
-app.get('/api/find-user-facebook-friends', function(req, res) {
-
-    if (req.query.username == null) {
-        res.sendStatus(400); // Sent BAD REQUEST response when required fields aren't given
-    }
-
-    // Would now give username to facebook API to retrieve friends.
-
-    // All users array is already sorted
-    var allUsers = JSON.parse(
-        fs.readFileSync(__dirname + '/data/allUsers.json', 'utf8')
-    );
-
-    // Facebook friends array is NOT sorted.
-    var facebookFriends = JSON.parse(
-        fs.readFileSync(__dirname + '/data/facebookFriends.json', 'utf8')
-    );
-
-    var registeredFacebookFriends = getRegisteredFacebookFriends(allUsers, facebookFriends);
-
-    res.send(registeredFacebookFriends);
-});
-
-
-/** User Management **/
-
 /**
  * User object, representing an Audiosplitter user.
  * @param username username (e-mail)
@@ -118,6 +98,43 @@ var User = function(username, password) {
         };
     }
 };
+
+
+
+
+
+/** API End-Points **/
+
+/**
+ * Requires username parameter in get request.
+ *
+ * Returns array of 'username's facebook friends of whom are registered to audiosplitter
+ */
+app.get('/api/find-user-facebook-friends', function(req, res) {
+    // These URLs will need changed to whichever server you have configured for PHP.
+    var facebookAPIUrl = "http://localhost/api/facebookFriends.php";
+    var audioSplitterUsersURL = "http://localhost/api/allUsers.php";
+
+    if (req.query.username == null) {
+        res.sendStatus(400); // Sent BAD REQUEST response when required fields aren't given
+    }
+
+    var allUsers, facebookFriends, registeredFacebookFriends;
+    // Request audiosplitter users first
+    request(audioSplitterUsersURL, function(err, response, body) {
+        allUsers = JSON.parse(body);
+
+        // On response, request facebook friends
+        request(facebookAPIUrl + "?username=" + req.query.username, function(err, response, body) {
+            facebookFriends = JSON.parse(body);
+
+            // On this final response, find which friends are registered and give result to client.
+            registeredFacebookFriends = getRegisteredFacebookFriends(allUsers, facebookFriends);
+            res.send(registeredFacebookFriends);
+        })
+    });
+
+});
 
 /**
  * Expects JSON of user containing fields:
@@ -143,10 +160,26 @@ app.post('/api/create-user', jsonParser, function(req, res) {
         ) {
         var newUser = new User(req.body.username, req.body.password);
 
-        // write to db
+        connection.query("INSERT INTO user " +
+                            "(username, password)" +
+                            "VALUES" +
+                            "(\"" + newUser.username + "\",\"" + newUser.password + "\")"
+            , function(err, result) {
 
-        console.log("User '" + newUser.username + "' created.");
-        res.send(newUser.getPublicUser());
+                // Add handler for duplicate name?
+
+                if (!err) {
+                    console.log("New user successfully inserted to database.");
+                    console.log(result);
+                    console.log("User '" + newUser.username + "' created.");
+                    res.send(newUser.getPublicUser());
+                } else {
+                    console.error("Error inserting new user to database.");
+                    console.error(result);
+                    console.error(err);
+                }
+            });
+
     } else {
         res.sendStatus(404);
     }
@@ -163,7 +196,8 @@ app.post('/api/create-user', jsonParser, function(req, res) {
  */
 app.post('/api/user-login', jsonParser, function(req, res) {
     if (!req.body) {
-        return res.sendStatus(404);
+        res.sendStatus(404);
+        return;
     }
 
     // Search and retrieve user from database
