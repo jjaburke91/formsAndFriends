@@ -20,26 +20,32 @@ var server = app.listen(3000, function () {
 
 
 
-/** Database Connections **/
-var mysql = require('mysql');
-var connection = mysql.createConnection( {
-    host: 'localhost',
-    user: 'aSplitterAdmin',
-    password: 'rubbishpassword',
-    database: 'audiosplitter'
-});
-
-connection.connect( function(err) {
-    if (!err) {
-        console.log("Database successfully connected.");
-    } else {
-        console.error("Error connecting to database.");
-    }
-});
-
 
 
 /** Back-End Code. Above is boiler-plate server setup. **/
+
+/** Database Connections **/
+var useDatabase = true; // Make this falsy to ignore all database operations. Easier for you to deploy.
+
+if (useDatabase) {
+    var mysql = require('mysql');
+    var connection = mysql.createConnection( {
+        host: 'localhost',
+        user: 'aSplitterAdmin',
+        password: 'rubbishpassword',
+        database: 'audiosplitter'
+    });
+
+    connection.connect( function(err) {
+        if (!err) {
+            console.log("Database successfully connected.");
+        } else {
+            console.error("Error connecting to database.");
+        }
+    });
+}
+
+
 
 /**
  * Binary searches across allUsers and returns a list of those users which within facebookFriends.
@@ -49,9 +55,9 @@ connection.connect( function(err) {
  *
  * NOTE: This could be made recursive.
  *
- * @param allUsers List of all Audiosplitter users
- * @param facebookFriends List of all a user's facebook friends
- * @returns {Array} List of all facebook friends of whom are Audiosplitter users
+ * @param allUsers : List of all Audiosplitter users
+ * @param facebookFriends : List of all a user's facebook friends
+ * @returns {Array} : List of all facebook friends of whom are Audiosplitter users
  */
 var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
     var foundFriends = [];
@@ -83,7 +89,7 @@ var getRegisteredFacebookFriends = function(allUsers, facebookFriends) {
 
 /**
  * User object, representing an Audiosplitter user.
- * @param username username (e-mail)
+ * @param username : username (e-mail)
  * @param password
  */
 var User = function(username, password) {
@@ -128,7 +134,7 @@ app.get('/api/find-user-facebook-friends', function(req, res) {
     var audioSplitterUsersURL = "http://localhost/api/allUsers.php";
 
     if (req.query.username == null) {
-        res.sendStatus(400); // Sent BAD REQUEST response when required fields aren't given
+        res.sendStatus(400); // Send BAD REQUEST response when required fields aren't given
     }
 
     var allUsers, facebookFriends, registeredFacebookFriends;
@@ -176,39 +182,45 @@ app.post('/api/create-user', jsonParser, function(req, res) {
         ) {
         var newUser = new User(req.body.username, req.body.password);
 
-        connection.query("INSERT INTO user " +
-                            "(username, password)" +
-                            "VALUES" +
-                            "(\"" + newUser.username + "\",\"" + newUser.password + "\")"
-            , function(err, result) {
-
-                if (!err) {
-                    console.log("New user successfully inserted to database.");
-                    console.log(result);
-                    console.log("User '" + newUser.username + "' created.");
-                    res.send( new ResponseMessage(
-                        true,
-                        "User successfully created.",
-                        newUser.getPublicUser()
-                    ));
-                } else {
-                    console.error("Error inserting new user to database.");
-                    console.error(err);
-
-                    // Errno 1062 is a "Duplicate Entry" error.
-                    if (err.errno == 1062) {
-                        res.send( new ResponseMessage(false, "Username already in use."));
+        if (useDatabase) {
+            connection.query("INSERT INTO user " +
+                "(username, password)" +
+                "VALUES" +
+                "(\"" + newUser.username + "\",\"" + newUser.password + "\")"
+                , function(err, result) {
+                    if (!err) {
+                        console.log("User '" + newUser.username + "' created.");
+                        res.send( new ResponseMessage(
+                            true,
+                            "User successfully created.",
+                            newUser.getPublicUser()
+                        ));
                     } else {
-                        res.send( new ResponseMessage(false, "Error creating User."));
-                    }
+                        console.error("Error inserting new user to database.");
+                        console.error(err);
 
-                }
-            });
+                        // Errno 1062 is a "Duplicate Entry" error.
+                        if (err.errno == 1062) {
+                            res.send( new ResponseMessage(false, "Username already in use."));
+                        } else {
+                            res.send( new ResponseMessage(false, "Error creating User."));
+                        }
+
+                    }
+                });
+        } else {
+            res.send( new ResponseMessage(
+                true,
+                "User successfully created.",
+                newUser.getPublicUser()
+            ));
+        }
+
 
     } else {
         res.send( new ResponseMessage(
             false,
-            "User credentials failed validation"
+            "User credentials failed validation."
         ));
     }
 

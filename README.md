@@ -21,6 +21,7 @@
 * Update PHP file URLs on build / deployment.
 * Password hashing in Database would be required on a live website.
 * Decent method of handling error messages from server - quite messy just now.
+* useDatabase variable
 
 ## Build
 
