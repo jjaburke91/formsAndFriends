@@ -47,6 +47,11 @@
     </div>
 
     <button class="form-button" type="submit" ng-disabled="!registerForm.$valid">Register</button>
+
+    <div class="form-input-container">
+        <p class="form-primary-error form-error" ng-show="registrationError" >{{registrationError}}</p>
+    </div>
+
     <p>{{newUser}}</p>
 
 </form>

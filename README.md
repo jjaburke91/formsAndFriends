@@ -8,9 +8,10 @@
 * ~~Get facebook friends search exported to server-side.~~
 * ~~Set up PHP environment.~~
 * Ensure only 1 error message is displayed at a time on a form.
-* Feedback on successful registration.
-* ~~Re-arrange facebook friend search - it's not a login page!~~
 * Get error message passing organised
+* ~~Displayed registration error~~
+* ~~Feedback on successful registration.~~
+* ~~Re-arrange facebook friend search - it's not a login page!~~
 
 ## Comments
 

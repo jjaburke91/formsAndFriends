@@ -14,6 +14,7 @@ formsAndFriendsApp.controller("registrationFormController", ["$scope", "userRepo
         password : "",
         password_confirmation: ""
     };
+    $scope.registrationError = "";
 
     $scope.passwordContainsNumber = function() {
         return $scope.newUser.password.match(/\d+/g);
@@ -26,7 +27,15 @@ formsAndFriendsApp.controller("registrationFormController", ["$scope", "userRepo
     $scope.formSubmit = function(isValid) {
         // Deliberately validating again before post.
         if (isValid && $scope.passwordsMatch() && $scope.passwordContainsNumber() ) {
-            userRepository.createUser($scope.newUser);
+            userRepository.createUser($scope.newUser).then(
+                function (response) {
+                    if (response.success) {
+                        $scope.registrationError = "";
+                    } else {
+                        $scope.registrationError = response.message;
+                    }
+                }
+            );
         }
         else {
             console.error("registrationFormController: Form invalid.");

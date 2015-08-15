@@ -13,15 +13,16 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
                     console.log(response);
                     if (response.data.success) {
                         angular.copy(response.data.content, activeUser); // CONFIRM WHY THIS IS NEEDED
-                        console.log(activeUser);
-                        return activeUser;
+                        return {
+                            success: true
+                        }
                     } else {
                         console.error(response.data.message || "userRepository: Error creating new user.");
-                        if (response.data.message) {
-                            return response.data.message;
-                        }
+                        return {
+                            success: false,
+                            message: response.data.message || "Error registering user, please check credentials."
+                        };
                     }
-
                 },
                 function error(response) {
                     console.error("userRepository: Error posting new user to repository");
@@ -29,6 +30,7 @@ formsAndFriendsApp.service("userRepository", ['$http', function($http) {
                 }
             );
         },
+
         getActiveUser: function() {
             return activeUser;
         },

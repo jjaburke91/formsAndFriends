@@ -25,9 +25,9 @@ formsAndFriendsApp.controller("facebookFriendsOnAudiosplitterController", ["$sco
             function success(response) {
                 if (typeof response === undefined) {
                     console.error("facebookFriendsOnAudiosplitterController: Error retrieving facebook friends");
-                    return;
+                } else {
+                    $scope.facebookFriends = response;
                 }
-                $scope.facebookFriends = response;
             },
             function error() {
                 console.error("facebookFriendsOnAudiosplitterController: Error retrieving facebook friends.");
