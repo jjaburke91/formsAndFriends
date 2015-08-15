@@ -95,24 +95,31 @@ html {
         background-color: @background-color;
         border: 2px solid @text-color;
     }
+}
 
-    .form-error {
-        position: absolute;
-        width: 100%;
-        bottom: 1em;
+.form-error {
+    position: absolute;
+    width: 100%;
+    bottom: 1em;
 
-        margin: .2em 0;
-        padding: 0;
+    margin: .2em 0;
+    padding: 0;
 
-        color: @error-text-color ;
-        text-transform: lowercase;
-        font-weight: bold;
-        font-size: .7em;
-    }
-    .form-primary-error {
-        font-size: 1em;
-        margin: 0;
-        text-transform: capitalize;
+    color: @error-text-color ;
+    text-transform: lowercase;
+    font-weight: bold;
+    font-size: .7em;
+}
+.form-primary-error {
+    font-size: 1em;
+    margin: 0;
+    text-transform: capitalize;
+}
+.submit-button-container {
+    position: relative;
+
+    p {
+        bottom: -1em;
     }
 }
 

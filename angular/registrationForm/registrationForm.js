@@ -16,17 +16,16 @@ formsAndFriendsApp.controller("registrationFormController", ["$scope", "userRepo
     };
     $scope.registrationError = "";
 
-    $scope.passwordContainsNumber = function() {
-        return $scope.newUser.password.match(/\d+/g);
-    };
-
     $scope.passwordsMatch = function() {
-        return $scope.newUser.password === $scope.newUser.password_confirmation;
+        if ($scope.newUser.password && $scope.newUser.password_confirmation)
+            return $scope.newUser.password === $scope.newUser.password_confirmation;
+        else
+            return false;
     };
 
     $scope.formSubmit = function(isValid) {
-        // Deliberately validating again before post.
-        if (isValid && $scope.passwordsMatch() && $scope.passwordContainsNumber() ) {
+        // Deliberately validating again before posting.
+        if (isValid && $scope.passwordsMatch() ) {
             userRepository.createUser($scope.newUser).then(
                 function (response) {
                     if (response.success) {
