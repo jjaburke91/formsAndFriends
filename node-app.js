@@ -99,6 +99,18 @@ var User = function(username, password) {
     }
 };
 
+/**
+ * JSON structure of every response given to front-end
+ * @param success : Boolean signifiying if required operation was successfull or not.
+ * @param message : String message describing success or failure.
+ * @param content : field to store response content.
+ */
+var ResponseMessage = function(success, message, content) {
+    this.success = success && true; // defaults to false
+    this.message = message;
+    this.content = content ;
+};
+
 
 
 
@@ -130,7 +142,11 @@ app.get('/api/find-user-facebook-friends', function(req, res) {
 
             // On this final response, find which friends are registered and give result to client.
             registeredFacebookFriends = getRegisteredFacebookFriends(allUsers, facebookFriends);
-            res.send(registeredFacebookFriends);
+            res.send( new ResponseMessage(
+                true,
+                "",
+                registeredFacebookFriends
+            ));
         })
     });
 
@@ -166,22 +182,34 @@ app.post('/api/create-user', jsonParser, function(req, res) {
                             "(\"" + newUser.username + "\",\"" + newUser.password + "\")"
             , function(err, result) {
 
-                // Add handler for duplicate name?
-
                 if (!err) {
                     console.log("New user successfully inserted to database.");
                     console.log(result);
                     console.log("User '" + newUser.username + "' created.");
-                    res.send(newUser.getPublicUser());
+                    res.send( new ResponseMessage(
+                        true,
+                        "User successfully created.",
+                        newUser.getPublicUser()
+                    ));
                 } else {
                     console.error("Error inserting new user to database.");
-                    console.error(result);
                     console.error(err);
+
+                    // Errno 1062 is a "Duplicate Entry" error.
+                    if (err.errno == 1062) {
+                        res.send( new ResponseMessage(false, "Username already in use."));
+                    } else {
+                        res.send( new ResponseMessage(false, "Error creating User."));
+                    }
+
                 }
             });
 
     } else {
-        res.sendStatus(404);
+        res.send( new ResponseMessage(
+            false,
+            "User credentials failed validation"
+        ));
     }
 
 
@@ -204,6 +232,10 @@ app.post('/api/user-login', jsonParser, function(req, res) {
 
     var loggedInUser = new User(req.body.username, req.body.password);
 
-    res.send(loggedInUser.getPublicUser());
+    res.send( new ResponseMessage(
+        true,
+        loggedInUser.username + " successfully logged in.",
+        loggedInUser.getPublicUser()
+    ));
 });
 

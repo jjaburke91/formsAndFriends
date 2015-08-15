@@ -18,6 +18,7 @@
 * email validators client and server side aren't same. Client accepts "jamie@jamie", server doesn't.
 * Update PHP file URLs on build / deployment.
 * Password hashing in Database would be required on a live website.
+* Decent method of handling error messages from server - quite messy just now.
 
 ## Build
 
@@ -26,7 +27,7 @@
 ~~Using JSON files instead of PHP.~~
 
 ### MYSQL Schema
-
+```
 mysql> DESCRIBE user;
 +----------+--------------+------+-----+---------+-------+
 | Field    | Type         | Null | Key | Default | Extra |
@@ -35,4 +36,4 @@ mysql> DESCRIBE user;
 | password | varchar(64)  | NO   |     | NULL    |       |
 +----------+--------------+------+-----+---------+-------+
 2 rows in set (0.00 sec)
-
+```
