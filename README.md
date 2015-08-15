@@ -9,7 +9,8 @@
 * ~~Set up PHP environment.~~
 * Ensure only 1 error message is displayed at a time on a form.
 * Feedback on successful registration.
-* Re-arrange facebook friend search - it's not a login page!
+* ~~Re-arrange facebook friend search - it's not a login page!~~
+* Get error message passing organised
 
 ## Comments
 
@@ -22,6 +23,7 @@
 * Password hashing in Database would be required on a live website.
 * Decent method of handling error messages from server - quite messy just now.
 * useDatabase variable
+* Keeping track of ActiveUser.
 
 ## Build
 

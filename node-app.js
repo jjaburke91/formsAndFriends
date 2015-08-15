@@ -25,7 +25,7 @@ var server = app.listen(3000, function () {
 /** Back-End Code. Above is boiler-plate server setup. **/
 
 /** Database Connections **/
-var useDatabase = true; // Make this falsy to ignore all database operations. Easier for you to deploy.
+var useDatabase = false; // Make this falsy to ignore all database operations. Useful for testing sometimes.
 
 if (useDatabase) {
     var mysql = require('mysql');
@@ -226,28 +226,3 @@ app.post('/api/create-user', jsonParser, function(req, res) {
 
 
 });
-
-/**
- * Expects JSON of a user containing fields:
- * * username
- * * password
- *
- * Returns Json object of user.
- */
-app.post('/api/user-login', jsonParser, function(req, res) {
-    if (!req.body) {
-        res.sendStatus(404);
-        return;
-    }
-
-    // Search and retrieve user from database
-
-    var loggedInUser = new User(req.body.username, req.body.password);
-
-    res.send( new ResponseMessage(
-        true,
-        loggedInUser.username + " successfully logged in.",
-        loggedInUser.getPublicUser()
-    ));
-});
-

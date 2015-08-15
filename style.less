@@ -7,10 +7,10 @@
 
 /* Mixins */
 
-.border-radius (@value) {
-    -webkit-border-radius: @value;
-    -moz-border-radius: @value;
-    border-radius: @value;
+.border-radius (@border-radius) {
+    -webkit-border-radius: @border-radius;
+    -moz-border-radius: @border-radius;
+    border-radius: @border-radius;
 }
 
 .transition (@transition) {
@@ -28,12 +28,13 @@
 
 
 
+/* Styling */
+
 html {
     font-family: @font-stack;
+    min-width: 650px;
     background-color: @background-color;
     color: @text-color;
-
-    min-width: 650px;
 }
 
 #home-page-container {
@@ -46,15 +47,14 @@ html {
         margin: .5em 0;
     }
 
-    #registration-form-container, #login-form-container  {
+    .form-container  {
         max-width: 40em;
         margin: auto;
         padding: 1em;
-
         text-align: center;
     }
 
-    #register-login-link {
+    #register-facebookFriends-link {
         width: 15em;
         margin: 0 auto 1em auto;
         text-align: center;
@@ -69,7 +69,6 @@ html {
             cursor: pointer;
         }
     }
-
 
 }
 
@@ -139,8 +138,6 @@ html {
         margin: auto;
         padding: .5em 0;
         overflow: auto;
-
-//        border: 1px solid gold;
         .border-box;
 
         .facebook-friend-image-container {
@@ -159,12 +156,10 @@ html {
             span {
                 display: block;
                 overflow: auto;
-//                width: 100%
             }
 
             .facebook-friend-name {
                 font-size: 1.5em;
-
             }
 
             .facebook-friend-artist {

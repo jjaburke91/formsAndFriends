@@ -1,5 +1,14 @@
-<div id="facebook-friends-container" ng-show="facebookFriendsFound">
+<form ng-submit="findFriends()" name="findFriendsForm" novalidate>
 
+    <div class="form-input-container">
+        <p class="input-label">Username (E-mail)</p>
+        <input type="email" name="username" ng-model="searchUser" ng-minlength="5" ng-maxlength="50" required/>
+        <button class="form-button" type="submit" ng-disabled="findFriendsForm.$invalid">Find Facebook Friends</button>
+    </div>
+
+</form>
+
+<div id="facebook-friends-container" ng-show="facebookFriends.length > 0">
     <!-- Consider making the friend output two columns - opportunity to show responsiveness -->
 
     <div class="facebook-friend-container" ng-repeat="facebookFriend in facebookFriends">

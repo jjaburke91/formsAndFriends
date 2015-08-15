@@ -8,8 +8,9 @@ formsAndFriendsApp.directive("facebookFriendsOnAudiosplitter", [ 'userRepository
                 function() {
                     return userRepo.getActiveUser().username;
                 }, function() {
+                    console.log("watching");
                     if (userRepo.getActiveUser().username != null) {
-                        scope.findFriends(userRepo.getActiveUser().username);
+                        scope.searchUser = userRepo.getActiveUser().username;
                     }
                 }
             );
@@ -18,19 +19,16 @@ formsAndFriendsApp.directive("facebookFriendsOnAudiosplitter", [ 'userRepository
 }]);
 
 formsAndFriendsApp.controller("facebookFriendsOnAudiosplitterController", ["$scope", "userRepository", function($scope, userRepository) {
-    $scope.facebookFriendsFound = false;
+    $scope.searchUser = "";
 
-    $scope.findFriends = function(username) {
-        userRepository.getFacebookFriends(username).then(
+    $scope.findFriends = function() {
+        userRepository.getFacebookFriends($scope.searchUser).then(
             function success(response) {
                 if (typeof response === undefined) {
                     console.error("facebookFriendsOnAudiosplitterController: Error retrieving facebook friends");
                     return;
                 }
-                if (response.length > 0) {
-                    $scope.facebookFriends = response;
-                    $scope.facebookFriendsFound = true;
-                }
+                $scope.facebookFriends = response;
             },
             function error() {
                 console.error("facebookFriendsOnAudiosplitterController: Error retrieving facebook friends.");

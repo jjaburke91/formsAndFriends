@@ -1,23 +1,17 @@
 <div id="home-page-container">
 
-    <div id="register-login-link">
-        <span ng-class="{'active': registerFormActive}" ng-click="registerFormActive = true; loginFormActive = false">Register</span>
-        <span ng-class="{'active': loginFormActive}"    ng-click="registerFormActive = false; loginFormActive = true">Login</span>
+    <div id="register-facebookFriends-link">
+        <span ng-class="{'active': registerFormActive}" ng-click="registerFormActive = true; findFriendsActive = false">Register</span>
+        <span ng-class="{'active': findFriendsActive}"    ng-click="registerFormActive = false; findFriendsActive = true">Find Friends</span>
     </div>
 
-    <div id="registration-form-container" ng-show="registerFormActive">
+    <div class="form-container" ng-show="registerFormActive">
 
         <registration-form> </registration-form>
 
     </div>
 
-    <div id="login-form-container" ng-show="loginFormActive">
-
-        <login-form></login-form>
-
-    </div>
-
-    <div id="facebook-friend-comparator-container">
+    <div class="form-container" ng-show="findFriendsActive">
 
         <facebook-friends-on-audiosplitter ></facebook-friends-on-audiosplitter>
 
