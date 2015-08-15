@@ -12,7 +12,7 @@
 * ~~Displayed registration error~~
 * ~~Feedback on successful registration.~~
 * ~~Re-arrange facebook friend search - it's not a login page!~~
-* Get login / registtration page names and route consistent.
+* Get login / registration page names and route consistent.
 
 ## Comments
 
@@ -27,6 +27,7 @@
 * useDatabase variable
 * Keeping track of ActiveUser.
 * Talk about back-end making requests to the APIs and not front-end, why this is a better work-flow.
+* Ensure form validation is the SAME server and client side.
 
 ## Build
 
