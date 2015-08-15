@@ -2,12 +2,14 @@
 
 ## To-Do
 * ~~Registration Form.~~
-* ~~Run PHP files and have Angular retrieve content.~~ Using Node server-side
-* Create MySQL DB.
-* Service or otherwise for writing to DB.
+* ~~Run PHP files and have Angular retrieve content.~~
+* ~~Create MySQL DB.~~
+* ~~Service or otherwise for writing to DB.~~
 * ~~Get facebook friends search exported to server-side.~~
-* Set up PHP environment.
+* ~~Set up PHP environment.~~
 * Ensure only 1 error message is displayed at a time on a form.
+* Feedback on successful registration.
+* Re-arrange facebook friend search - it's not a login page!
 
 ## Comments
 
@@ -26,7 +28,7 @@
 
 ~~Using JSON files instead of PHP.~~
 
-### MYSQL Schema
+### MYSQL
 ```
 mysql> DESCRIBE user;
 +----------+--------------+------+-----+---------+-------+
