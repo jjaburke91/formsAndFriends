@@ -8,7 +8,6 @@ formsAndFriendsApp.directive("facebookFriendsOnAudiosplitter", [ 'userRepository
                 function() {
                     return userRepo.getActiveUser().username;
                 }, function() {
-                    console.log("watching");
                     if (userRepo.getActiveUser().username != null) {
                         scope.searchUser = userRepo.getActiveUser().username;
                     }
