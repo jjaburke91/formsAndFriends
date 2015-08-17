@@ -1,0 +1,136 @@
+/* Mixins */
+.border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* Styling */
+html {
+  font-family: 'Open Sans';
+  min-width: 650px;
+  background-color: #ffffff;
+  color: #696a6e;
+}
+#home-page-container {
+  max-width: 80em;
+  margin: auto;
+}
+#home-page-container > h1 {
+  text-align: center;
+  text-transform: uppercase;
+  margin: .5em 0;
+}
+#home-page-container .form-container {
+  max-width: 40em;
+  margin: auto;
+  padding: 1em;
+  text-align: center;
+}
+#home-page-container #register-facebookFriends-link {
+  width: 15em;
+  margin: 0 auto 1em auto;
+  text-align: center;
+  font-size: 1.5em;
+  text-transform: lowercase;
+}
+#home-page-container #register-facebookFriends-link .active {
+  border-bottom: 3px #03a68c solid;
+}
+#home-page-container #register-facebookFriends-link span {
+  padding: .2em 1em;
+  cursor: pointer;
+}
+.form-input-container {
+  padding: .5em 0 2em 0;
+  position: relative;
+  font-size: 1.3em;
+}
+.form-input-container .input-label {
+  margin: 0 0 .5em 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+.form-input-container input {
+  display: block;
+  width: 30em;
+  max-width: 30em;
+  padding: 1em 0;
+  text-align: center;
+  font-size: 1em;
+  background-color: #ffffff;
+  border: 2px solid #696a6e;
+}
+.form-error {
+  position: absolute;
+  width: 100%;
+  bottom: 1em;
+  margin: .2em 0;
+  padding: 0;
+  color: #00adba;
+  text-transform: lowercase;
+  font-weight: bold;
+  font-size: .7em;
+}
+.form-primary-error {
+  font-size: 1em;
+  margin: 0;
+  text-transform: capitalize;
+}
+.submit-button-container {
+  position: relative;
+}
+.submit-button-container p {
+  bottom: -1em;
+}
+.form-button {
+  padding: .5em 1em;
+  margin: 1em;
+  cursor: pointer;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  border: 1px solid #03a68c !important;
+  font-size: 1.2em;
+  background-color: #03a68c;
+  color: #ffffff;
+}
+.form-button:disabled {
+  background-color: #ffffff;
+  color: #424346;
+}
+#facebook-friends-container .facebook-friend-container {
+  display: inline-block;
+  float: left;
+  width: 50%;
+  min-height: 9em;
+  padding: .5em .5em;
+  text-align: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#facebook-friends-container .facebook-friend-container .facebook-friend-image-container {
+  float: left;
+}
+#facebook-friends-container .facebook-friend-container .facebook-friend-image-container img {
+  display: block;
+  max-width: 5em;
+  -webkit-border-radius: 70px;
+  -moz-border-radius: 70px;
+  border-radius: 70px;
+}
+#facebook-friends-container .facebook-friend-container .facebook-friend-information-container {
+  padding: .5em 1em;
+  overflow: auto;
+}
+#facebook-friends-container .facebook-friend-container .facebook-friend-information-container span {
+  display: block;
+  overflow: auto;
+}
+#facebook-friends-container .facebook-friend-container .facebook-friend-information-container .facebook-friend-name {
+  font-size: 1.5em;
+}
+#facebook-friends-container .facebook-friend-container .facebook-friend-information-container .facebook-friend-artist {
+  font-size: 1em;
+  padding: 5px 0 0 0;
+}
