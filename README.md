@@ -2,23 +2,6 @@
 
 Here's my solution to the task you gave me. Hopefully this displays to you my knowledge of Angular, Javascript, CSS, HTML, MySQL and an understanding of both back-end and front-end programming.
 
-## Comments On Implementation
-
-### Form Error Handling
-On a larger project, I would likely export all form error messages to a service of some sort so that there is a central location for storing and editing all error messages.
-
-### Passwords
-
-Currently the only password constraints are on length, however I know that on production systems there would need to be checks for capital and numeric values. I would likely create a custom directive for handling and validating more complex constraints.
-
-Also on a production environment; the password would not be stored in a database as a raw string value. My experience of hashing within databases is limited, however I'm familiar with the concept and it's desirability for password fields.
-
-### Server-Side Retrieval Of Facebook Friends
-
-From reading the task I got the impression it was desired to have our client-side code query for all Audiosplitter users and facebook friends, however I find this work-flow to be slightly inefficient.
-
-Given we'll be searching across those data values, I think it makes sense to have the faster server-side to do all the processing, and instead have our client-side query our server-side code to get the result of the search. The client-side is burdened with minimal processing.
-
 ## Build
 
 The project was built in an environment using Bower, NPM, Grunt, LESS and Node JS.
@@ -60,3 +43,20 @@ mysql> DESCRIBE user;
 ```
 
 **NOTE**, there is a boolean variable in `node-app.js` called `useDatabase`, you can set this to value false if you want the server to skip any database operations. I thought this might ease deployment and examination.
+
+## Comments On Implementation
+
+### Form Error Handling
+On a larger project, I would likely export all form error messages to a service of some sort so that there is a central location for storing and editing all error messages.
+
+### Passwords
+
+Currently the only password constraints are on length, however I know that on production systems there would need to be checks for capital and numeric values. I would likely create a custom directive for handling and validating more complex constraints.
+
+Also on a production environment; the password would not be stored in a database as a raw string value. My experience of hashing within databases is limited, however I'm familiar with the concept and it's desirability for password fields.
+
+### Server-Side Retrieval Of Facebook Friends
+
+From reading the task I got the impression it was desired to have our client-side code query for all Audiosplitter users and facebook friends, however I find this work-flow to be slightly inefficient.
+
+Given we'll be searching across those data values, I think it makes sense to have the faster server-side to do all the processing, and instead have our client-side query our server-side code to get the result of the search. The client-side is burdened with minimal processing.

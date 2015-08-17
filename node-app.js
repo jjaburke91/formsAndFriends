@@ -25,7 +25,7 @@ var server = app.listen(3000, function () {
 /** Back-End Code. Above is boiler-plate server setup. **/
 
 /** Database Connections **/
-var useDatabase = false; // Make this falsy to ignore all database operations. Useful for testing sometimes.
+var useDatabase = true; // Make this falsy to ignore all database operations. Useful for testing sometimes.
 
 if (useDatabase) {
     var mysql = require('mysql');
@@ -52,8 +52,6 @@ if (useDatabase) {
  * Matching is based on a facebookId property.
  *
  * Returns empty array when none around found.
- *
- * NOTE: This could be made recursive.
  *
  * @param allUsers : List of all Audiosplitter users
  * @param facebookFriends : List of all a user's facebook friends
