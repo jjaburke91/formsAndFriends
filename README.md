@@ -1,41 +1,53 @@
 # formsAndFriends
 
-## To-Do
-* ~~Registration Form.~~
-* ~~Run PHP files and have Angular retrieve content.~~
-* ~~Create MySQL DB.~~
-* ~~Service or otherwise for writing to DB.~~
-* ~~Get facebook friends search exported to server-side.~~
-* ~~Set up PHP environment.~~
-* ~~Ensure only 1 error message is displayed at a time on a form.~~
-* Get error message passing organised
-* ~~Displayed registration error~~
-* ~~Feedback on successful registration.~~
-* ~~Re-arrange facebook friend search - it's not a login page!~~
-* Get login / registration page names and route consistent.
+Here's my solution to the task you gave me. Hopefully this displays to you my knowledge of Angular, Javascript, CSS, HTML, MySQL and an understanding of both back-end and front-end programming.
 
-## Comments
+## Comments On Implementation
 
-* Don't usually do any styling early on. Usually wait till content and functionality is complete.
-* Form error messages should be kept in a library somewhere as opposed to scattered across HTML. **ngMessages looks ideal.**
-* Password constraints
-* Bad request on username unavailable on facebook friend request
-* email validators client and server side aren't same. Client accepts "jamie@jamie", server doesn't.
-* Update PHP file URLs on build / deployment.
-* Password hashing in Database would be required on a live website.
-* Decent method of handling error messages from server - quite messy just now.
-* useDatabase variable
-* Keeping track of ActiveUser.
-* Talk about back-end making requests to the APIs and not front-end, why this is a better work-flow.
-* Ensure form validation is the SAME server and client side.
+### Form Error Handling
+On a larger project, I would likely export all form error messages to a service of some sort so that there is a central location for storing and editing all error messages.
+
+### Passwords
+
+Currently the only password constraints are on length, however I know that on production systems there would need to be checks for capital and numeric values. I would likely create a custom directive for handling and validating more complex constraints.
+
+Also on a production environment; the password would not be stored in a database as a raw string value. My experience of hashing within databases is limited, however I'm familiar with the concept and it's desirability for password fields.
+
+### Server-Side Retrieval Of Facebook Friends
+
+From reading the task I got the impression it was desired to have our client-side code query for all Audiosplitter users and facebook friends, however I find this work-flow to be slightly inefficient.
+
+Given we'll be searching across those data values, I think it makes sense to have the faster server-side to do all the processing, and instead have our client-side query our server-side code to get the result of the search. The client-side is burdened with minimal processing.
 
 ## Build
 
+The project was built in an environment using Bower, NPM, Grunt, LESS and Node JS.
+
+With Node JS & Bower installed installed, run:
+
+```
+npm install
+
+grunt build
+
+node node-app.js
+```
+This will build most of the necessary dependencies and run the server at http://localhost:3000. Happy to give an explanation as to what's going on in the grunt tasks if you wish. I frequently re-use tasks *wiredep* and *concat*, both save me a lot of time messing about with imports and / or concatenating files.
+
+Branch "*prod_build*" contains all the files required to execute the application if you don't wish to go through the build processes.
+
+### PHP
+
+I have a PHP server running locally only to serve up the PHP files, the URLs of which are defined in `node-app.js` in the variables `facebookAPIUrl` and `audioSplitterUsersURL`. **These URLs will need to be set appopriately on deployment.**
+
 ### Node JS
 
-~~Using JSON files instead of PHP.~~
+The idea of running two servers for run a single web application is poor but because I was given the chance to write the back-end code in Javascript, I chose to use it as I feel more confident and proficient with it.
 
-### MYSQL
+### MySQL
+
+Successfully registered users are written to a MySQL database, the connection of which is configured in `node-app.js`. The schema of the database is as follows:
+
 ```
 mysql> DESCRIBE user;
 +----------+--------------+------+-----+---------+-------+
@@ -46,3 +58,5 @@ mysql> DESCRIBE user;
 +----------+--------------+------+-----+---------+-------+
 2 rows in set (0.00 sec)
 ```
+
+**NOTE**, there is a boolean variable in `node-app.js` called `useDatabase`, you can set this to value false if you want the server to skip any database operations. I thought this might ease deployment and examination.
